@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BirrBets Pro - Ethiopian Premier Betting</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🇪🇹 BirrBets Pro</div>
+        <div class="user-info">
+            <div class="balance" id="balanceDisplay">Balance: 0 ETB</div>
+            <button class="btn btn-yellow" id="loginBtn" onclick="showLogin()">Login</button>
+            <button class="btn btn-outline" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="nav-item active" onclick="loadGames('all')">🏠 Home</div>
+        <div class="nav-item" onclick="loadGames('live')">🔴 Live</div>
+        <div class="nav-item" onclick="showDeposit()">💰 Deposit</div>
+        <div class="nav-item" onclick="showWithdrawal()">💸 Withdraw</div>
+        <div class="nav-item" onclick="showMyBets()">📊 My Bets</div>
+    </nav>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Leagues</h3>
+            <div class="sport-item" onclick="loadGames('Ethiopian Premier League')">⚽ Ethiopian PL</div>
+            <div class="sport-item" onclick="loadGames('English Premier League')">🏴 English PL</div>
+            <div class="sport-item" onclick="loadGames('La Liga')">🇪🇸 La Liga</div>
+            <div class="sport-item" onclick="loadGames('Serie A')">🇮🇹 Serie A</div>
+            <div class="sport-item" onclick="loadGames('Bundesliga')">🇩🇪 Bundesliga</div>
+        </aside>
+        
+        <main class="content" id="gamesContainer">
+            <h2>Loading games...</h2>
+        </main>
+        
+        <aside class="bet-slip">
+            <h3>Bet Slip</h3>
+            <div id="betSelections"><p>No selections</p></div>
+            <div id="betSummary" style="display:none;">
+                <p>Total Odds: <strong id="totalOdds">0</strong></p>
+                <input type="number" id="stakeInput" placeholder="Stake (ETB)" min="10">
+                <p>Win: <strong id="potentialWinnings">0 ETB</strong></p>
+                <button onclick="placeBet()">Place Bet</button>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2>Login</h2>
+            <input type="text" id="loginPhone" placeholder="Phone">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <p><a href="#" onclick="showRegister()">Register</a></p>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <h2>Register</h2>
+            <input type="text" id="regName" placeholder="Full Name">
+            <input type="text" id="regPhone" placeholder="Phone">
+            <input type="password" id="regPassword" placeholder="Password">
+            <button onclick="register()">Register</button>
+        </div>
+    </div>
+    
+    <!-- Deposit Modal -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <h2>Deposit via Telebirr</h2>
+            <div class="telebirr-info">
+                <p>Send to:</p>
+                <h1>0972375899</h1>
+            </div>
+            <input type="number" id="depositAmount" placeholder="Amount (ETB)" min="50">
+            <button onclick="initiateDeposit()">Deposit</button>
+        </div>
+    </div>
+    
+    <!-- Withdrawal Modal -->
+    <div class="modal" id="withdrawalModal">
+        <div class="modal-content">
+            <h2>Withdraw</h2>
+            <input type="number" id="withdrawAmount" placeholder="Amount (ETB)" min="100">
+            <button onclick="initiateWithdrawal()">Withdraw</button>
+        </div>
+    </div>
+    
+    <script src="/js/main.js"></script>
+</body>
+</html>

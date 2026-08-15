@@ -1,0 +1,58 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+const path = require('path');
+
+dotenv.config();
+
+const app = express();
+
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Database Connection
+const connectDB = require('./config/database');
+connectDB();
+
+// Import Routes
+const authRoutes = require('./routes/auth');
+const betRoutes = require('./routes/bets');
+const gameRoutes = require('./routes/games');
+const depositRoutes = require('./routes/deposits');
+const withdrawalRoutes = require('./routes/withdrawals');
+
+// Use Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/bets', betRoutes);
+app.use('/api/games', gameRoutes);
+app.use('/api/deposits', depositRoutes);
+app.use('/api/withdrawals', withdrawalRoutes);
+
+// Main Route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Error Handler
+const { errorHandler } = require('./middleware/errorHandler');
+app.use(errorHandler);
+
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log('=================================');
+    console.log('✅ BirrBets Pro Running');
+    console.log(`📍 http://localhost:${PORT}`);
+    console.log('💰 Telebirr: 0972375899');
+    console.log('=================================');
+});
